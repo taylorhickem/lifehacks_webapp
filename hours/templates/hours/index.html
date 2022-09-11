@@ -1,0 +1,40 @@
+{% load static %}
+{% if resource_list %}
+<body>
+<p><a href="/hours/refresh/">REFRESH</a></p>
+<p><a href="/hours/update/">UPDATE</a></p>
+<p><br></p>
+<p>last updated: {{ last_updated}}</p>
+<style type="text/css">
+    td {
+      padding-top:5px;
+      padding-bottom:5px;
+      padding-right:20px;
+    }
+
+</style>
+    <table>
+        <tr>
+            <th>resource</th>
+            <th>status</th>
+            <th>current as of</th>
+        </tr>
+    {% for resource in resource_list %}
+            {% if resource.url is None %}
+                <td>{{ resource.name}}</td>
+            {% else %}
+                <td><a href={{resource.url}}>{{ resource.name}}</a></td>
+            {% endif %}
+            <td>{{ resource.status}}</td>
+            {% if resource.recent_date is None %}
+                <td></td>
+            {% else %}
+                <td>{{ resource.recent_date}}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No resources are available.</p>
+{% endif %}
+</body>
