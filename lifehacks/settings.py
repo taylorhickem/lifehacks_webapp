@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,11 @@ SECRET_KEY = 'n2*ek82jl^l(_2yo@xq!%i0^c(1y5lt@ly!0g-_rqr95_!g&fy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '3.0.44.113',
+    'apps.lifehacks.datadetective.sg'
+]
 
 
 # Application definition
@@ -74,10 +79,25 @@ WSGI_APPLICATION = 'lifehacks.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+MYSQL_CREDENTIALS = json.load(open('mysql_credentials.json'))
+
+# for debugging on localhost
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
+# for remote
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lifehacks_webapp',
+        'USER': MYSQL_CREDENTIALS['username'],
+        'PASSWORD': MYSQL_CREDENTIALS['password'],
+        'HOST': MYSQL_CREDENTIALS['host'],
+        'PORT': 3306
     }
 }
 
