@@ -106,6 +106,8 @@ def refresh_gdrive():
 
     try:
         nt.load()
+        nt.new_records_asbytes = [] #force the list to empty
+
         nt.gdrive_load_csv()
         records = nt.new_records_asbytes
 
