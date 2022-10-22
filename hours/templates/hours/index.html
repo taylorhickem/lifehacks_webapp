@@ -1,9 +1,10 @@
-{% load static %}
+{% extends 'hours/base.html' %}
+
+{% block content %}
 {% if resource_list %}
 <body>
-<p><a href="/hours/refresh/">REFRESH</a></p>
-<p><a href="/hours/update/">UPDATE</a></p>
-<p><br></p>
+<p><button type="button"><a href="/hours/refresh/">REFRESH</a></button>
+<button type="button"><a href="/hours/update/">UPDATE</a></button></p>
 <p>last updated: {{ last_updated}}</p>
 <style type="text/css">
     td {
@@ -38,3 +39,4 @@
     <p>No resources are available.</p>
 {% endif %}
 </body>
+{% endblock %}
