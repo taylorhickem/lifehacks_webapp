@@ -9,6 +9,13 @@ def update_events():
     '''
     nt.load()
     nt.update_events()
+    unload_nt()
+
+
+def unload_nt():
+    nt.db.engine = None
+    nt.db.gs_engine = None
+    nt.db.gdrive.service = None
 
 
 def refresh_last_update():
@@ -44,6 +51,7 @@ def refresh_db():
         # 02 get most recent date
         db_events = nt.db.get_table('event')
         recent_date = db_events['date'].max().date()
+        unload_nt()
 
         # 03 determine status
         if recent_date >= yesterday_date:
@@ -76,6 +84,7 @@ def refresh_gsheet():
         # 02 get most recent date
         gs_events = nt.db.get_sheet('events')
         recent_date = gs_events['date'].max().date()
+        unload_nt()
 
         # 03 determine status
         if recent_date >= yesterday_date:
@@ -110,6 +119,7 @@ def refresh_gdrive():
 
         nt.gdrive_load_csv()
         records = nt.new_records_asbytes
+        unload_nt()
 
         if len(records) > 0:
             status_str = 'PENDING UPDATE'
