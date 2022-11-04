@@ -1,0 +1,40 @@
+{% extends 'hours/base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    td {
+      padding-top:5px;
+      padding-bottom:5px;
+      padding-right:20px;
+    }
+
+</style>
+
+<h1>Login</h1>
+<body>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><label class="form-label">Username</label></td>
+            <td><input type="username" name="username" placeholder="Username..." class="form-control" ></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Password</label></td>
+            <td><input type="password" name="password" placeholder="Password..." class="form-control" ></td>
+        </tr>
+    </table>
+
+  <button type="submit" class="btn btn-primary">Login</button>
+
+    {% for message in messages %}
+        <p id="messages">{{message}}</p>
+    {% endfor %}
+
+</form>
+
+</body>
+
+{% endblock %}

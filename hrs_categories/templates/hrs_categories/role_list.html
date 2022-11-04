@@ -1,0 +1,46 @@
+{% extends 'hrs_categories/base.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <div>
+        <h2>Roles</h2>
+    </div>
+</div>
+
+<div id="search-add-wrapper">
+    <form method="GET" style="display: flex;">
+        <input type='text' name='search-area' placeholder="Search for role..." value="{{search_input}}">
+        <input class="button" type="submit" value='&#128269'>
+    </form>
+    {% if roles|length > 0 %}
+    <a id="add-link" href="{% url 'hrs_categories:role-create' %}">&#x2b;</a>
+    {% endif %}
+</div>
+
+
+<div id="rolelist" class="role-items-wrapper">
+    {% for role in roles %}
+        <div class="role-wrapper" data-position="{{role.order}}">
+            <div class="role-title">
+                {% if role.is_active %}
+                    <div class="role-active-icon"></div>
+                    <a href="{% url 'hrs_categories:role-update' role.id %}">{{role}}</a>
+                {% else %}
+                    <div class="role-inactive-icon"></div>
+                    <i><s><a href="{% url 'hrs_categories:role-update' role.id %}">{{role}}</a></s></i>
+                {% endif %}
+            </div>
+            <div class="role-controls">
+                <a class="delete-link" href="{% url 'hrs_categories:role-delete' role.id %}">&#215;</a>
+                <span class="handle">&nbsp;&#10247;</span>
+            </div>
+        </div>
+
+    {% empty %}
+        <div style="text-align: center; padding-bottom: 5%;">
+            <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'hrs_categories:role-create' %}">New role</a> ! </h3>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

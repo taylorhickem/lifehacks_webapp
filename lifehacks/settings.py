@@ -36,13 +36,15 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'hours.apps.HoursConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hours.apps.HoursConfig',
+    'hrs_categories.apps.HrsCategoriesConfig',
+    'ordered_model',
 ]
 
 MIDDLEWARE = [
@@ -82,24 +84,24 @@ WSGI_APPLICATION = 'lifehacks.wsgi.application'
 MYSQL_CREDENTIALS = json.load(open('mysql_credentials.json'))
 
 # for debugging on localhost
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
-# for remote
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lifehacks_webapp',
-        'USER': MYSQL_CREDENTIALS['username'],
-        'PASSWORD': MYSQL_CREDENTIALS['password'],
-        'HOST': MYSQL_CREDENTIALS['host'],
-        'PORT': 3306
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# for remote
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'lifehacks_webapp',
+#        'USER': MYSQL_CREDENTIALS['username'],
+#        'PASSWORD': MYSQL_CREDENTIALS['password'],
+#        'HOST': MYSQL_CREDENTIALS['host'],
+#        'PORT': 3306
+#    }
+#}
 
 
 # Password validation
@@ -140,3 +142,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+LOGIN_URL = 'hours:login'
